@@ -1,1 +1,6 @@
 # VASDoc
+
+
+Dependencies : 
+  Flask 
+  ipfsapi
