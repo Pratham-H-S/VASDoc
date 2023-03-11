@@ -16,6 +16,9 @@ class Block:
 
 class new:
   pass
+
+class new_block:
+  pass
 class Blockchain:
 
   def __init__(self):
