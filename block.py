@@ -1,5 +1,6 @@
 import hashlib
 
+#generate hahs
 
 def hashGenerator(data):
   result = hashlib.sha256(data.encode())
