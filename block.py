@@ -6,7 +6,7 @@ def hashGenerator(data):
   result = hashlib.sha256(data.encode())
   return result.hexdigest()
 
-
+#commit changes
 class Block:
 
   def __init__(self, data, hash, prev_hash):
@@ -14,7 +14,8 @@ class Block:
     self.hash = hash
     self.prev_hash = prev_hash
 
-
+class new:
+  pass
 class Blockchain:
 
   def __init__(self):
