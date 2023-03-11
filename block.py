@@ -6,7 +6,6 @@ def hashGenerator(data):
   return result.hexdigest()
 
 print("fuck you")
-print("kusu")
 class Block:
 
   def __init__(self, data, hash, prev_hash):
