@@ -5,6 +5,7 @@ def hashGenerator(data):
   result = hashlib.sha256(data.encode())
   return result.hexdigest()
 
+print ("Hello World")
 
 class Block:
 
