@@ -23,8 +23,11 @@ with open("test.txt","r") as f:
     msg = f.read()
 
 print(str(msg))
+# print(msg.encode())
+# print(msg.decode())
+pub_key = "hello worldddddddddddddddddddddddddddddddddddddddddddddd"
 
-encrypted_msg = rsa.encrypt(msg.encode(),public_key)
+encrypted_msg = rsa.encrypt(msg.encode(),pub_key)
 print(encrypted_msg)
 
 with open("encrypted.txt","wb") as f:
