@@ -2,8 +2,8 @@ from OpenSSL import crypto
 
 # Generate a new private key
 key = crypto.PKey()
-# key.generate_key(crypto.TYPE_RSA, 2048)
-key.generate_key(crypto.TYPE_RSA, 2048, '-rand', 'joi.jpeg')
+key.generate_key(crypto.TYPE_RSA, 2048)
+# key.generate_key(crypto.TYPE_RSA, 2048, '-rand', 'joi.jpeg')
 
 # Create a self-signed X.509 certificate containing the public key
 cert = crypto.X509()
