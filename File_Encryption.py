@@ -25,6 +25,12 @@ with open("test.txt","r") as f:
 print(str(msg))
 
 encrypted_msg = rsa.encrypt(msg.encode(),public_key)
+print(str(msg))
+# print(msg.encode())
+# print(msg.decode())
+
+
+encrypted_msg = rsa.encrypt(msg.encode(),public_key)
 print(encrypted_msg)
 
 with open("encrypted.txt","wb") as f:
