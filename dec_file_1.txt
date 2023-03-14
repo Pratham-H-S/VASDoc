@@ -1,0 +1,25 @@
+Intro Page:
+	Millions of users are exposed to attacks that leverage vulnerabilities. Detecting and preventing installation programs from getting into 	your network and being used to propagate vulnerabilities is one of the top cybersecurity best practices.
+
+
+Url Scanner :
+	-- Every day we come across so many urls , unknowingly we visit them
+	-- In order to check the suspecious urls , place the url below to know how vulnerable the url is.
+	-- Some urls might posses some highly risky scripts which might sneak into your pc unknowingly
+	-- After the submitting the suspecious url below we display a complete report for the url . 
+	-- the report will go through all the anti virus platforms to provide a satisfying result.
+
+File Scanner:
+	-- We use many files For Example it could be text or a pdf document etc
+	-- But we never bother about how secure they are, cause we think the windows firewall is up and we don't need to worry.
+	-- There are some viruses(Scripts) which are capable of bypassing the firewall , Hence we need to be cautious of what we download.
+	-- Keeping that into consideration we have a mechanism to scan a file across all the anti-virus platforms.
+	-- After Scanning a detailed report of the scans is displayed to the user.
+
+Cilck jacking:
+	--Clickjacking is an attack that tricks a user into clicking a webpage element which is invisible or disguised as another element
+	--This can cause users to unwittingly download malware, visit malicious web pages, provide credentials or sensitive information, transfer 	  money, or purchase products online
+	--The user believes they are clicking the visible page but in fact they are clicking an invisible element in the additional page 	  	  transposed on top of it.
+	--If the user at some point is suspecious about the websites unusual behaviour ,he/she can visit our website and paste the website url
+	  and get the detailed report on the urls masked under a website.
+ 
