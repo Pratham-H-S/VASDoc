@@ -1,6 +1,6 @@
 import rsa
 
-with open("encrypted.txt","rb") as f:
+with open("pdencrypted.txt","rb") as f:
     encrypted_msg = f.read()
 
 with open("private.pem","rb") as f:

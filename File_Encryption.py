@@ -19,25 +19,45 @@ with open("private.pem" ,"rb") as f:
 
 # msg = "This a message encrypted using public key"
 
-with open("test.txt","r") as f:
+with open("medical_g.pdf","r") as f:
     msg = f.read()
 
-print(str(msg))
+print("Message is :",str(msg))
+chunk_size = 117  # Maximum chunk size for 2048-bit key size
+chunks = [msg[i:i+chunk_size] for i in range(0, len(msg), chunk_size)]
+
+ciphertext = b""
+for chunk in chunks:
+    ciphertext += rsa.encrypt(chunk, public_key)
+
+# encrypted_msg = rsa.encrypt(msg.encode(),public_key)
+
 # print(msg.encode())
 # print(msg.decode())
-pub_key = "hello worldddddddddddddddddddddddddddddddddddddddddddddd"
 
-encrypted_msg = rsa.encrypt(msg.encode(),pub_key)
-print(encrypted_msg)
 
-with open("encrypted.txt","wb") as f:
-    f.write(encrypted_msg)
+
+print(ciphertext)
+
+with open("pdencrypted.txt","wb") as f:
+    f.write(ciphertext)
 
 
 
 # decrypted_msg = rsa.decrypt(encrypted_msg,private_key)
 
 # print(decrypted_msg.decode())
+
+
+
+# Split message into chunks
+
+
+# Encrypt each chunk
+
+
+
+
 
 
 

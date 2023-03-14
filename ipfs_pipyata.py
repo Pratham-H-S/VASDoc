@@ -8,13 +8,14 @@ from dotenv import load_dotenv
 load_dotenv()  
 # take environment variables from .env.
 #get the api keys from pinata account
-pinata_api_key='b6eeff70a3db9297ee70'
-pinata_secret_api_key='6d2ea1725659207d0067decbe02c2439f70b31b1f66599781d0e1fe964694e38'
+pinata_api_key='7419c5add1eb97ef8044'
+pinata_secret_api_key='339e20f14cf6d8996d4fab4a79383ef0bbb4a8b7bb58da02f408b6354de29373'
 # Connect to the IPFS cloud service
 pinata = PinataPy(pinata_api_key,pinata_secret_api_key)
 
 # Upload the file
-result = pinata.pin_file_to_ipfs("1BY19CS109_FEES.pdf")#works even with markdown.md (text file))
+f = "os.pdf"
+result = pinata.pin_file_to_ipfs("F:/"+f)#works even with markdown.md (text file))
 
 # Should return the CID (unique identifier) of the file
 print(result)
