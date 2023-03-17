@@ -1,2 +1,0 @@
-This file will be encrypted using users public key 
-decryption using private key
