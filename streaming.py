@@ -3,6 +3,10 @@ import cv2
 import threading
 import time
 import os
+from pymongo import MongoClient #import class to import mongodb
+from gridfs import GridFS #import class to connect to gridfs
+from bson import objectid
+from mongo_files import add_files_to_mongo
 
 #to capture video class
 class StreamingVideoCamera(object):
@@ -32,5 +36,7 @@ def gen(camera):
         time.sleep(1)
         i+=1
         frame = camera.get_frame(i)
+        if i==10:
+            add_files_to_mongo()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')

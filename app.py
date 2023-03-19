@@ -1,4 +1,4 @@
-from flask import Flask, render_template,redirect ,request,send_file,session
+from flask import Flask, render_template,redirect ,request,send_file,session,Response
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -19,7 +19,8 @@ import sqlite3
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
-
+from streaming import StreamingVideoCamera,gen
+from mongo_files import add_files_to_mongo
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
 proj_secret = 'a14627536a3deddd62467e42bf6a900b' 
