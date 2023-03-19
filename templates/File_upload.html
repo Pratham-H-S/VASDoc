@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% block nav %}
+<li><a href="{{ url_for('file_upload') }}">File upload</a></li> 
+{% endblock %}
+{% block content %}
+<div id="main" class="wrapper style1">
+    <div class="container">
+        <header class="major">
+            <h2>Please upload the file</h2>
+            
+        </header>
+
+        <!-- Content -->
+            <section id="content">
+                <a href="#" class="image fit"><img src= "/static/images/ipfs.jpg" alt="image not found" /></a>
+                
+                <form method = 'POST'>
+                    <br>
+                    <div class="form-group">
+                        <label for="username">Enter the user name of the receiver</label>
+                        <input type="text" class="form-control" name="username">
+    
+                      </div>
+                    
+                    
+                    <br>
+                
+                  </form>
+
+
+                <form method='POST' enctype='multipart/form-data'>
+                    {{form.hidden_tag()}}
+                    {{form.file()}}
+                    <br>
+                    
+                    <br>
+                    {{form.submit()}}
+                </form>
+                
+                
+            </section>
+
+    </div>
+</div>
+{% endblock %}
