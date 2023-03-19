@@ -166,5 +166,11 @@ def register():
 
 
 
+
+@app.route('/video', methods=['GET',"POST"])
+def video():
+    cam = StreamingVideoCamera()
+    return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0',debug= True)
