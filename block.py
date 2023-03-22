@@ -6,9 +6,6 @@ def hashGenerator(data):
   result = hashlib.sha256(data.encode())
   return result.hexdigest()
 
-#commit changes
-class Block:
-
   def __init__(self, data, hash, prev_hash):
     self.data = data
     self.hash = hash
