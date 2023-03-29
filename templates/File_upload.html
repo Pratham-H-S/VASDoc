@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 {% block nav %}
 <li><a href="{{ url_for('File_upload.file_upload') }}">File upload</a></li> 
+<li><a href="{{ url_for('File_upload.file_upload') }}">Hello {{ g.username }}</a></li>
+<li><a href="{{ url_for('logout') }}">Logout </a></li>
+
 {% endblock %}
 {% block content %}
 <div id="main" class="wrapper style1">
