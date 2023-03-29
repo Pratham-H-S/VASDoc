@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block nav %} 
 
+{% if session['username'] %}
+<li><a href="{{ url_for('Profile.profile') }}"><i class="fa fa-fw fa-user"></i>Hello {{ g.username }}</a></li>
+{% endif %}
+{% if not session['username'] %}
 <li><a href="{{ url_for('login') }}">Login</a></li>
+{% endif %}
 {% endblock %}
 {% block content %}
 			<!-- Banner -->

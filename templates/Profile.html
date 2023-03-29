@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-<li><a href="{{ url_for('File_upload.file_upload') }}">File upload</a></li> 
 <li><a href="{{ url_for('logout') }}">Logout </a></li>
 {% endblock %}
 
@@ -22,7 +21,7 @@
             </div>
           </div>
           <br>
-          <br>
+          
 
           <div class="row">
             <div class="col-md-6">
@@ -159,7 +158,7 @@
               </div>
               
           </div>
-          <a href="#">Add Receivers</a>
+          <a href="{{url_for('File_upload.file_upload')}}">Add Receivers</a>
         </div>
       </div>
     </div>
