@@ -10,12 +10,17 @@ import rsa
 from File_Decryption import decrypt_data
 import requests
 from wtforms.validators import InputRequired
+from pymongo import MongoClient
 
 File_upload = Blueprint("File_upload", __name__, static_folder="static",template_folder="template")
 
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
 proj_secret = 'a14627536a3deddd62467e42bf6a900b' 
+
+cl = MongoClient("mongodb://localhost:27017")
+db = cl["filedata"]
+db1 = cl["userdata"]
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
@@ -34,10 +39,14 @@ class UploadFileForm(FlaskForm):
 @File_upload.route('/file_upload', methods=['GET',"POST"])
 def file_upload():
     form = UploadFileForm()
-    if form.validate_on_submit(): 
-        username = request.form.get("username")
+    if request.method == 'POST' :
+        username =  request.form['username']
+        print(username)
+        login_user = db1.userdata.find_one({'name' : request.form['username']})
+        print(login_user)
+
         
-        file = form.file.data # First grab the file
+        file = request.files['file'] # First grab the file
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
         directory = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDERR'])
         files = os.listdir(directory)
@@ -64,6 +73,11 @@ def file_upload():
             with open("public.pem","rb") as f:
                 publicKey = rsa.PublicKey.load_pkcs1(f.read())
             encrypted_data = encrypt_data(data['Hash'],publicKey)
+            h = data['Hash']
+            if login_user:
+                db.filedata.insert_one({"username" : username, "encryptedfile": encrypted_data})
+                print(db)
+                print("inserted")
 
             # https://VASDoc.infura-ipfs.io/ipfs/
 

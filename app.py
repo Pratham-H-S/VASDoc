@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template,redirect ,request,send_file,session, url_for , g
 from flask_wtf import FlaskForm
 import os
@@ -10,15 +11,16 @@ from File_upload import File_upload
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
-
+from Verify import Verify
 from wtforms.validators import InputRequired
 from Decrypt_file import Decrypt
 import bcrypt
 from pymongo import MongoClient
-from Profile import Profile
+from Profile import Profile , profile
 
 cl = MongoClient("mongodb://localhost:27017")
 db = cl["userdata"]
+db1 = cl["filedata"]
 collections = db["userdata"]
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
@@ -52,8 +54,8 @@ def index():
     return render_template("index.html")
 
 app.register_blueprint(Decrypt,url_prefix="")
-
-app.register_blueprint(Profile, url_prefix = "/login/")
+app.register_blueprint(Profile, url_prefix = "")
+app.register_blueprint(Verify,url_prefix="")
 
 @app.route('/download')
 def file_download():
@@ -62,16 +64,16 @@ def file_download():
 
 @app.route('/login',methods = ['GET','POST'])
 def login():
-    form = UploadFileForm()
+
     # users = mongo.db.users
+    files = []
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
-        
         if login_user:
             # if check_password_hash(request.form['password'], login_user['password']):
             if  bcrypt.checkpw(request.form['password'].encode("utf-8"),login_user['password']):
                 session['username'] = request.form['username']
-                return redirect(url_for("Profile.profile") )
+                return redirect(url_for("Profile.profile"))
             return "invalid user"
     return render_template('login.html')
 
@@ -99,12 +101,6 @@ def logout():
     session.pop("username",None)
     return redirect(url_for("index"))
 
-
-
-@app.route('/video', methods=['GET',"POST"])
-def video():
-    cam = StreamingVideoCamera()
-    return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0',debug= True)

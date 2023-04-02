@@ -18,28 +18,29 @@
             <section id="content">
                 <a href="#" class="image fit"><img src= "/static/images/ipfs.jpg" alt="image not found" /></a>
                 
-                <form method = 'POST'>
+                <form method = 'POST' enctype="multipart/form-data">
                     <br>
-                    <div class="form-group">
-                        <label for="username">Enter the user name of the receiver</label>
-                        <input type="text" class="form-control" name="username">
-    
+                    <div class="form-outline mb-4">
+                        <input type="text" id="form3Example3" class="form-control form-control-lg"
+                          placeholder="Enter a valid username"  name="username"/>
+                        <label class="form-label" for="form3Example3">username</label>
                       </div>
-                    
-                    
+                    <br>
+                      <input type="file" name = "file">
+                      <button type="submit"> submit</button>
                     <br>
                 
                   </form>
 
 
-                <form method='POST' enctype='multipart/form-data'>
+                <!-- <form method='POST' enctype='multipart/form-data'>
                     {{form.hidden_tag()}}
                     {{form.file()}}
                     <br>
                     
                     <br>
-                    {{form.submit()}}
-                </form>
+                    
+                </form> -->
                 
                 
             </section>
