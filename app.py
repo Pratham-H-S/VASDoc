@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template,redirect ,request,send_file,session, url_for , g
+from flask import Flask, render_template,redirect ,request,send_file,session, url_for , g ,Response
 from flask_wtf import FlaskForm
 import os
 import requests
@@ -17,6 +17,10 @@ from Decrypt_file import Decrypt
 import bcrypt
 from pymongo import MongoClient
 from Profile import Profile , profile
+from AddReceiver import AddReceiver
+from streaming import StreamingVideoCamera,gen
+from mongo_files import add_files_to_mongo
+
 
 cl = MongoClient("mongodb://localhost:27017")
 db = cl["userdata"]
@@ -56,6 +60,7 @@ def index():
 app.register_blueprint(Decrypt,url_prefix="")
 app.register_blueprint(Profile, url_prefix = "")
 app.register_blueprint(Verify,url_prefix="")
+app.register_blueprint(AddReceiver,url_prefix="")
 
 @app.route('/download')
 def file_download():
@@ -100,6 +105,12 @@ def register():
 def logout():
     session.pop("username",None)
     return redirect(url_for("index"))
+
+
+@app.route('/video_register', methods=['GET',"POST"])
+def video():
+    cam = StreamingVideoCamera()
+    return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
 
 
 if __name__ == '__main__':
