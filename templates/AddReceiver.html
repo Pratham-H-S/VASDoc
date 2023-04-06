@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{% block nav %}
+
+<li><a href="{{ url_for('Profile.profile') }}"><i class="fa fa-fw fa-user"></i>Hello {{ g.username }}</a></li>
+<li><a href="{{ url_for('logout') }}">Logout </a></li>
+
+{% endblock %}
+{% block content %}
+<div id="main" class="wrapper style1"   class="bg-image"
+style="
+  background-image: url('https://img.freepik.com/free-vector/blue-gradient-technology-background_23-2149112673.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+" >
+    <div class="container">
+        <header class="major">
+            <h2>Add Receiver's Details</h2>
+            
+        </header>
+
+        <!-- Content -->
+            <section id="content">
+                <!-- <a href="#" class="image fit"><img src= "/static/images/ipfs.jpg" alt="image not found" /></a> -->
+                
+                <form method = 'POST' enctype="multipart/form-data">
+                    <br>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example3">Enter Receivers username</label>
+                        <input type="text" id="form3Example3" class="form-control form-control-lg"
+                          placeholder="Enter a valid username"  name="username"/>
+                      </div>
+                    <br>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">Enter Receivers Public key</label>
+                        <input type="file" name = "file">
+                    </div>
+                      
+                      <br>
+                      <br>
+                      <button type="submit"> submit</button>
+                    <br>
+                
+                  </form>
+
+
+          
+                
+                
+            </section>
+
+    </div>
+</div>
+{% endblock %}
