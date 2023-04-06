@@ -19,12 +19,12 @@ from pymongo import MongoClient
 from Profile import Profile , profile
 from AddReceiver import AddReceiver
 from streaming import StreamingVideoCamera,gen
-from mongo_files import add_files_to_mongo
+from mongo_files import add_files_to_mongo,get_image
+from facerecognition import gen_frames
 
-
-cl = MongoClient("mongodb://localhost:27017")
+URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
+cl = MongoClient(URL)
 db = cl["userdata"]
-db1 = cl["filedata"]
 collections = db["userdata"]
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
@@ -111,6 +111,11 @@ def logout():
 def video():
     cam = StreamingVideoCamera()
     return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+
+@app.route('/facerecognition', methods=['GET',"POST"])
+def video_1():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 
 if __name__ == '__main__':
