@@ -13,40 +13,33 @@
 				<section id="banner">
 					<div class="content">
 						<header>
-							<h2>File Sharing Using Blockchain</h2>
-							<p>And there are no hoverboards or flying cars.<br />
-							Just apps. Lots of mother flipping apps.</p>
+							<h2>File Sharing Using IPFS</h2>
+							<p>A simple website to share files using IPFS<br/>
+								and digitally sign the documents</p>
+							
 						</header>
-						<span class="image"><img src="images/pic01(2).jpg" alt="" /></span>
+						<span class="image"><img src="{{ url_for('static', filename='images/ipfs.jpg') }}" alt="No img" /></span>
 					</div>
 					<a href="#one" class="goto-next scrolly">Next</a>
 				</section>
 
 			<!-- One -->
 				<section id="one" class="spotlight style1 bottom">
-					<span class="image fit main"><img src="images/pic02.jpg" alt="" /></span>
+					<span class="image fit main"><img src="{{ url_for('static', filename='images/pic11.jpg') }}" alt="No img" /></span>
 					<div class="content">
 						<div class="container">
 							<div class="row">
 								<div class="col-4 col-12-medium">
 									<header>
-										<h2>Odio faucibus ipsum integer consequat</h2>
-										<p>Nascetur eu nibh vestibulum amet gravida nascetur praesent</p>
+										<h2>About IPFS</h2>
+										<p>InterPlanetary File System</p>
 									</header>
 								</div>
 								<div class="col-4 col-12-medium">
-									<p>Feugiat accumsan lorem eu ac lorem amet sed accumsan donec.
-									Blandit orci porttitor semper. Arcu phasellus tortor enim mi
-									nisi praesent dolor adipiscing. Integer mi sed nascetur cep aliquet
-									augue varius tempus lobortis porttitor accumsan consequat
-									adipiscing lorem dolor.</p>
+									<p>IPFS is based on a content-addressed system, which means that files are addressed by their content, rather than by a location or a name. This allows for content-based routing, where files can be stored and retrieved from any node in the network, without relying on a centralized server. </p>
 								</div>
 								<div class="col-4 col-12-medium">
-									<p>Morbi enim nascetur et placerat lorem sed iaculis neque ante
-									adipiscing adipiscing metus massa. Blandit orci porttitor semper.
-									Arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer
-									mi sed nascetur cep aliquet augue varius tempus. Feugiat lorem
-									ipsum dolor nullam.</p>
+									<p>In IPFS, files are divided into small chunks, and each chunk is assigned a unique content-addressed hash. These hashes can be used to locate and retrieve the file chunks from other nodes in the network.</p>
 								</div>
 							</div>
 						</div>
@@ -56,15 +49,17 @@
 
 			<!-- Two -->
 				<section id="two" class="spotlight style2 right">
-					<span class="image fit main"><img src="images/pic03.jpg" alt="" /></span>
+					<span class="image fit main"><img src="{{ url_for('static', filename='images/face.jpg') }}" alt="No img" /></span>
 					<div class="content">
 						<header>
-							<h2>Interdum amet non magna accumsan</h2>
-							<p>Nunc commodo accumsan eget id nisi eu col volutpat magna</p>
+							<h2>Facial Recognition</h2>
+							<p>Face authentication is a secure and convenient way to verify the identity of users accessing protected areas of your website.</p>
 						</header>
-						<p>Feugiat accumsan lorem eu ac lorem amet ac arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer mi sed nascetur cep aliquet augue varius tempus lobortis porttitor lorem et accumsan consequat adipiscing lorem.</p>
+						<p>
+							At our website, we have implemented face authentication technology to provide our users with an additional layer of security when accessing sensitive data or features.
+						</p>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="https://en.wikipedia.org/wiki/Facial_recognition_system" class="button">Learn More</a></li>
 						</ul>
 					</div>
 					<a href="#three" class="goto-next scrolly">Next</a>
@@ -72,22 +67,24 @@
 
 			<!-- Three -->
 				<section id="three" class="spotlight style3 left">
-					<span class="image fit main bottom"><img src="images/pic04.jpg" alt="" /></span>
+					<span class="image fit main bottom"><img src="{{ url_for('static', filename='images/pic009.jpg') }}" alt="" /></span>
 					<div class="content">
 						<header>
-							<h2>Interdum felis blandit praesent sed augue</h2>
-							<p>Accumsan integer ultricies aliquam vel massa sapien phasellus</p>
+							<h2>Digital Signature</h2>
+							<p>Digital signatures are a secure and reliable way to authenticate and verify the identity of users accessing our website. </p>
 						</header>
-						<p>Feugiat accumsan lorem eu ac lorem amet ac arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer mi sed nascetur cep aliquet augue varius tempus lobortis porttitor lorem et accumsan consequat adipiscing lorem.</p>
+						<p>
+							Our digital signature technology provides a tamper-proof way of signing and verifying electronic documents, ensuring the integrity and authenticity of online transactions.
+						</p>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="https://en.wikipedia.org/wiki/Digital_signature" class="button">Learn More</a></li>
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
 				</section>
 
 			<!-- Four -->
-				<section id="four" class="wrapper style1 special fade-up">
+				<!-- <section id="four" class="wrapper style1 special fade-up">
 					<div class="container">
 						<header class="major">
 							<h2>Accumsan sed tempus adipiscing blandit</h2>
@@ -133,7 +130,7 @@
 							</ul>
 						</footer>
 					</div>
-				</section>
+				</section> -->
 
 			<!-- Five -->
 				<section id="five" class="wrapper style2 special fade">
