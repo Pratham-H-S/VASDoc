@@ -22,9 +22,9 @@ from AddReceiver import AddReceiver
 from streaming import StreamingVideoCamera,gen
 from mongo_files import add_files_to_mongo,get_image
 # from facerecognition import gen_frames
-
 #URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
 URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
+
 cl = MongoClient(URL)
 db = cl["userdata"]
 collections = db["userdata"]
