@@ -9,8 +9,8 @@ Profile = Blueprint("Profile", __name__, static_folder= "static", template_folde
 
 @Profile.route("/Profile")
 def profile():
-    files = []
-    filedata = db1.filedata.find({"username" : session['username'] })
-    for f in filedata:
-        files.append(f["filehash"])
-    return render_template("Profile.html", files = files)
+    # files = []
+    # filedata = db1.filedata.find({"username" : session['username'] })
+    # for f in filedata:
+    # files.append(f["filehash"])
+    return render_template("Profile.html")

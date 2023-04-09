@@ -4,16 +4,16 @@ from bson import objectid #hello world
 import os
 import cv2
 
-URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
-db=MongoClient(URL)['epochs']
+URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
+db=MongoClient(URL)['images']
 fs=GridFS(db)
-def add_files_to_mongo():
+def add_files_to_mongo(username):
   for i in range(10):
       os.chdir(os.getcwd()+"\images")
-      file = "data"+str(i+1)+".jpg"
+      file = username+str(i+1)+".jpg"
       with open(file, 'rb') as f:
           contents = f.read()
-      fs.put(contents, filename="file"+str(i+1))
+      fs.put(contents, filename=username+str(i+1))
       os.remove(file)
       os.chdir(os.getcwd()+'\..')
     
@@ -31,3 +31,5 @@ def get_image():
   file.write(output_file)
   file.close()
 # print(output_file)
+
+delete_all()

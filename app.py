@@ -3,6 +3,7 @@ from flask import Flask, render_template,redirect ,request,send_file,session, ur
 from flask_wtf import FlaskForm
 import os
 import requests
+from facerecognition import gen_frames
 from dotenv import load_dotenv
 load_dotenv() 
 from File_Decryption import decrypt_data
@@ -22,11 +23,12 @@ from streaming import StreamingVideoCamera,gen
 from mongo_files import add_files_to_mongo,get_image
 # from facerecognition import gen_frames
 
-# URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
+#URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
 URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
 cl = MongoClient(URL)
 db = cl["userdata"]
 collections = db["userdata"]
+username=""
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
 proj_secret = 'a14627536a3deddd62467e42bf6a900b' 
@@ -74,8 +76,6 @@ def login():
     # users = mongo.db.users
     if "username" in session:
         return render_template("index.html")
-
-    files = []
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
         if login_user:
@@ -98,7 +98,8 @@ def register():
             # hashpass = generate_password_hash(request.form['password'])
             # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8') , bcrypt.gensalt())
             db.userdata.insert_one({'name' : request.form['name'] , 'password' : hashpass , 'email' : request.form['email']})
-            return redirect('/login')
+            session['messages'] =  request.form['name'] 
+            return redirect('/video_register')
         else:
             print(existing_user)
             return "USer exists"
@@ -111,14 +112,15 @@ def logout():
     return redirect(url_for("index"))
 
 
-# @app.route('/video_register', methods=['GET',"POST"])
-# def video():
-#     cam = StreamingVideoCamera()
-#     return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+@app.route('/video_register', methods=['GET',"POST"])
+def video_registeration():
+    username = session['messages']
+    cam = StreamingVideoCamera(username)
+    return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
 
-# @app.route('/facerecognition', methods=['GET',"POST"])
-# def video_1():
-#     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/facerecognition', methods=['GET',"POST"])
+def video_1():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 
