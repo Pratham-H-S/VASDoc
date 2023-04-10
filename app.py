@@ -2,8 +2,9 @@
 from flask import Flask, render_template,redirect ,request,send_file,session, url_for , g ,Response
 from flask_wtf import FlaskForm
 import os
+import time
 import requests
-from facerecognition import gen_frames
+from facerecognition import gen_frames,trainmodel
 from dotenv import load_dotenv
 load_dotenv() 
 from File_Decryption import decrypt_data
@@ -72,10 +73,13 @@ def file_download():
 
 @app.route('/login',methods = ['GET','POST'])
 def login():
-
     # users = mongo.db.users
     if "username" in session:
         return render_template("index.html")
+    if request.method=="POST" and request.form.get("face") is not None and 'username' in request.form:
+            session['messages'] =  request.form['username'] 
+            return redirect('/facerecognition')
+
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
         if login_user:
@@ -119,7 +123,12 @@ def video_registeration():
     return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
 
 @app.route('/facerecognition', methods=['GET',"POST"])
-def video_1():
+def face_recognit():
+    username = session['messages']
+    print(username)
+    time.sleep
+    get_image(username)
+    trainmodel(username)
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

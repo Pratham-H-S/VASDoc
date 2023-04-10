@@ -5,17 +5,18 @@ import os
 from mongo_files import get_image,delete_all
 
 camera = cv2.VideoCapture(0)
-known_face_encodings=[]
 face_locations = []
 face_encodings = []
 face_names = []
 process_this_frame = True
 known_face_names = []
+known_face_encodings=[]
 
-image = face_recognition.load_image_file("image.jpg")
-face_encoding = face_recognition.face_encodings(image)[0]
-known_face_encodings.append(face_encoding)
-known_face_names.append("Prajodh")
+def trainmodel(username):
+    image = face_recognition.load_image_file("image.jpg")
+    face_encoding = face_recognition.face_encodings(image)[0]
+    known_face_encodings.append(face_encoding)
+    known_face_names.append(username)
 
 def gen_frames():  
     while True:
