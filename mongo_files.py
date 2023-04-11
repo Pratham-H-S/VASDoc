@@ -28,6 +28,6 @@ def get_image(username):
   data=db.fs.files.find_one({'filename':username+"1"})
   my_id=data['_id']
   output_file=fs.get(my_id).read()
-  file =  open(os.getcwd()+r"\\image.jpg",'wb') 
+  file=open(os.getcwd()+r"\\image.jpg",'wb')
   file.write(output_file)
   file.close()
