@@ -12,6 +12,11 @@ process_this_frame = True
 known_face_names = []
 known_face_encodings=[]
 
+image = face_recognition.load_image_file("image.jpg")
+face_encoding = face_recognition.face_encodings(image)[0]
+known_face_encodings.append(face_encoding)
+known_face_names.append("pratham")
+
 def trainmodel(username):
     image = face_recognition.load_image_file("image.jpg")
     face_encoding = face_recognition.face_encodings(image)[0]
@@ -71,4 +76,3 @@ def gen_frames():
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-                   

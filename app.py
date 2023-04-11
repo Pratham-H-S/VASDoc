@@ -129,9 +129,12 @@ def video_registeration():
 def face_recognit():
     username = session['messages']
     print(username)
-    time.sleep
     get_image(username)
     trainmodel(username)
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/facerecognition1', methods=['GET',"POST"])
+def face_recognitio():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
