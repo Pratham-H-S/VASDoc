@@ -11,6 +11,7 @@ from File_Decryption import decrypt_data
 import requests
 from wtforms.validators import InputRequired
 from pymongo import MongoClient
+from redis_class import RedisPublish
 
 File_upload = Blueprint("File_upload", __name__, static_folder="static",template_folder="template")
 
@@ -70,11 +71,17 @@ def file_upload():
                 data['Name'] = 'Folder CID'
             print("%s: %s" % (data['Name'], data['Hash']))
             x = data["Hash"]
+
             with open("public.pem","rb") as f:
                 publicKey = rsa.PublicKey.load_pkcs1(f.read())
             encrypted_data = encrypt_data(data['Hash'],publicKey)
             h = data['Hash']
+            connect=RedisPublish('127.0.0.1',6379,username)
+            connect.Redis_publish(json.dumps({username:x}))
             if login_user:
+                # connect=RedisPublish('127.0.0.1',6379,username)
+                # connect.Redis_publish(json.dumps({username:x}))
+                    
                 db.filedata.insert_one({"username" : username, "encryptedfile": encrypted_data})
                 print(db)
                 print("inserted")
