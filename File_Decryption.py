@@ -6,7 +6,7 @@ import os
 
 # with open("private.pem","rb") as f:
 #     private_key = rsa.PrivateKey.load_pkcs1(f.read())
-dir_name = 'F:/VasDoc/VASDoc/static/_files/'
+dir_name = 'D:/VasDoc/static/_files/'
 def decrypt_data(directory):
     files = os.listdir(directory)
     files.sort(key=lambda x: os.path.getctime(os.path.join(directory, x)), reverse=True)
