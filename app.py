@@ -103,7 +103,7 @@ def register():
             # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8') , bcrypt.gensalt())
             db.userdata.insert_one({'name' : request.form['name'] , 'password' : hashpass , 'email' : request.form['email']})
             session['messages'] =  request.form['name'] 
-            return redirect('/video_register')
+            return redirect('/video')
         else:
             print(existing_user)
             return "USer exists"
@@ -115,6 +115,9 @@ def logout():
     session.pop("username",None)
     return redirect(url_for("index"))
 
+@app.route('/video')
+def video():
+    return render_template('video.html')
 
 @app.route('/video_register', methods=['GET',"POST"])
 def video_registeration():
