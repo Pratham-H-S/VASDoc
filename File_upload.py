@@ -12,9 +12,22 @@ import requests
 from wtforms.validators import InputRequired
 from pymongo import MongoClient
 from redis_class import RedisPublish
+from cryptography.fernet import Fernet
+
+# key = Fernet.generate_key()
+
+# with open('mykey.key', 'wb') as mykey:
+#     mykey.write(key)
 
 File_upload = Blueprint("File_upload", __name__, static_folder="static",template_folder="template")
 
+with open('mykey.key', 'rb') as mykey:
+    key = mykey.read()
+
+
+
+
+fernet = Fernet(key)
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
 proj_secret = 'a14627536a3deddd62467e42bf6a900b' 
@@ -25,10 +38,10 @@ db1 = cl["userdata"]
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
-app.config['UPLOAD_FOLDER'] = 'F:/VasDoc/VASDoc/static/_files/'
-app.config['UPLOAD_FOLDERR'] = 'F:/VasDoc/VASDoc/static/_files/'
+app.config['UPLOAD_FOLDER'] = 'D:/VASDoc/static/_files/'
+app.config['UPLOAD_FOLDERR'] = 'D:/VASDoc/static/_files/'
 items = {}
-dir_name = 'F:/VasDoc/VASDoc/static/_files/'
+dir_name = 'D:/VASDoc/static/_files/'
 
 
 class UploadFileForm(FlaskForm):
@@ -54,6 +67,11 @@ def file_upload():
         files.sort(key=lambda x: os.path.getctime(os.path.join(directory, x)), reverse=True)
         recent_file = files[0]
         print("this is ",recent_file)
+        with open(dir_name + recent_file,"rb") as f:
+            data = f.read()
+        encrypted_file = fernet.encrypt(data)
+        with open(dir_name + recent_file,"wb") as f:
+            f.write(encrypted_file)
         for f in files:
             files.sort(key=lambda x: os.path.getctime(os.path.join(directory, x)), reverse=True)
             recent_file = files[0]
@@ -72,17 +90,17 @@ def file_upload():
             print("%s: %s" % (data['Name'], data['Hash']))
             x = data["Hash"]
 
-            with open("public.pem","rb") as f:
-                publicKey = rsa.PublicKey.load_pkcs1(f.read())
-            encrypted_data = encrypt_data(data['Hash'],publicKey)
-            h = data['Hash']
-            connect=RedisPublish('127.0.0.1',6379,username)
-            connect.Redis_publish(json.dumps({username:x}))
+            # with open("public.pem","rb") as f:
+            #     publicKey = rsa.PublicKey.load_pkcs1(f.read())
+            # encrypted_data = encrypt_data(data['Hash'],publicKey)
+            # h = data['Hash']
+            # connect=RedisPublish('127.0.0.1',6379,username)
+            # connect.Redis_publish(json.dumps({username:x}))
             if login_user:
                 # connect=RedisPublish('127.0.0.1',6379,username)
                 # connect.Redis_publish(json.dumps({username:x}))
                     
-                db.filedata.insert_one({"username" : username, "encryptedfile": encrypted_data})
+                db.filedata.insert_one({"username" : username, "filehash": x})
                 print(db)
                 print("inserted")
 
@@ -90,10 +108,17 @@ def file_upload():
 
         # return "<h2>Click this link{}</h2>".format(x)
             # https://VASDoc.infura-ipfs.io/ipfs/
-            print(encrypted_data)
+            
+            gateway="https://VASDoc.infura-ipfs.io/ipfs/"
+            print(requests.get(url=gateway+data['Hash']).text)
+            data = requests.get(url=gateway+data['Hash']).text
+            decrypted_file =  fernet.decrypt(data)
+            with open("dec.pdf","wb") as f:
+                f.write(decrypted_file)
+
             
             # return redirect("https://VASDoc.infura-ipfs.io/ipfs/"+x)
-            return render_template('file_download.html')
+            return render_template('Profile.html')
     return render_template('file_upload.html', form=form)
 
 
