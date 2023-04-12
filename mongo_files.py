@@ -31,3 +31,4 @@ def get_image(username):
   file=open(os.getcwd()+r"\\image.jpg",'wb')
   file.write(output_file)
   file.close()
+  return output_file

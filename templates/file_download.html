@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block nav %} 
-<li><a href="{{ url_for('Decrypt.decrypt_file') }}"> Decrypt file </a></li> 
+<li><a href="{{ url_for('login') }}"> login </a></li> 
 {% endblock %}
 {% block content %}
 <br>
 <br>
 <br>
 <br>
-<h2>The Encrypted File can be downloaded from the below given link</h2>
+<h2>The Private key can be downloaded from the below link</h2>
+<p>Never the private key with anyone</p>
+<p>store it in a secured place</p>
 <a href="{{ url_for('file_download') }}">Download the Encrypted file </a>
 
 

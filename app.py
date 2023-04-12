@@ -22,6 +22,8 @@ from Profile import Profile , profile
 from AddReceiver import AddReceiver
 from streaming import StreamingVideoCamera,gen
 from mongo_files import add_files_to_mongo,get_image
+from GenKeys import GenKeys
+
 # from facerecognition import gen_frames
 #URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
 URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
@@ -65,10 +67,11 @@ app.register_blueprint(Decrypt,url_prefix="")
 app.register_blueprint(Profile, url_prefix = "")
 app.register_blueprint(Verify,url_prefix="")
 app.register_blueprint(AddReceiver,url_prefix="")
+app.register_blueprint(GenKeys,url_prefix="")
 
 @app.route('/download')
 def file_download():
-    file ="encrypted.txt"
+    file ="private.txt"
     return send_file(file,as_attachment=True)
 
 @app.route('/login',methods = ['GET','POST'])
@@ -103,6 +106,7 @@ def register():
             # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8') , bcrypt.gensalt())
             db.userdata.insert_one({'name' : request.form['name'] , 'password' : hashpass , 'email' : request.form['email']})
             session['messages'] =  request.form['name'] 
+            session['username'] = request.form['name']
             return redirect('/video')
         else:
             print(existing_user)
