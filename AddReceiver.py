@@ -1,13 +1,17 @@
-from flask import Blueprint , render_template ,request,Response
+from flask import Blueprint , render_template ,request,Response,session
 from pymongo import MongoClient
 from io import BytesIO
 from bson.binary import Binary
 from werkzeug.utils import secure_filename
 import rsa
 import gridfs
+from redis_class import RedisPublish
 from Crypto.PublicKey import RSA
 
-cl = MongoClient("mongodb://localhost:27017")
+URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
+
+cl = MongoClient(URL)
+db2 = cl["userdata"]
 db = cl["filedata"]
 fs = gridfs.GridFS(db)
 
@@ -49,6 +53,8 @@ def addReceiver():
         with open("pu.pem","wb") as f:
             f.write(p_key.save_pkcs1("PEM"))
         print(file_data)
+        db1.find({"username":session["username"]})
+        
         # return Response(file_data, content_type=file.content_type)
         # with open("pub.pem","rb") as f:
         #     public_key = rsa.PublicKey.load_pkcs1(f.read())

@@ -27,12 +27,27 @@ style="
                 
                 <form method = 'POST' enctype="multipart/form-data">
                     <br>
-                    <div class="form-outline mb-4">
+                    <div id="options">
+                      
+                      <label >Enter the username of the Receiver</label>
+                      <input type="text" name="options[]" class="options" size="50" placeholder="Enter the username">
+                    </div>
+                    <div class="controls">
+                      <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add Receiver </a>
+                      <br>
+                      <a href="#" id="remove_fields"><i class="fa fa-minus"></i>Remove Receiver</a>
+                    </div>
+                    <!-- <div class="form-outline mb-4">
                       <label class="form-label" for="form3Example3">Enter Receivers username</label>
                         <input type="text" id="form3Example3" class="form-control form-control-lg"
-                          placeholder="Enter a valid username"  name="username"/>
-                      </div>
+                          placeholder="Enter a valid username"  name="username[]"/>
+                          <div class="controls">
+                            <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                            <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+                          </div>
+                      </div> -->
                     <br>
+                    
                       <input type="file" name = "file">
                       <br>
                       <br>

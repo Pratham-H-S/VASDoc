@@ -1,5 +1,5 @@
 
-from flask import Flask , Blueprint, render_template,redirect ,request,send_file
+from flask import Flask , Blueprint, render_template,redirect ,request,send_file,session
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -31,13 +31,14 @@ fernet = Fernet(key)
 
 proj_id = '2My7MeE7GYEYXbYCpx9BTZpYd4m'
 proj_secret = 'a14627536a3deddd62467e42bf6a900b' 
+URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
 
-cl = MongoClient("mongodb://localhost:27017")
+cl = MongoClient(URL)
 db = cl["filedata"]
 db1 = cl["userdata"]
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'supersecretkey'
+app.config['SECRET_KEY'] = '42jk3234kjhsejfirewoiofh32jfk'
 app.config['UPLOAD_FOLDER'] = 'D:/VASDoc/static/_files/'
 app.config['UPLOAD_FOLDERR'] = 'D:/VASDoc/static/_files/'
 items = {}
@@ -54,9 +55,13 @@ class UploadFileForm(FlaskForm):
 def file_upload():
     form = UploadFileForm()
     if request.method == 'POST' :
-        username =  request.form['username']
-        print(username)
-        login_user = db1.userdata.find_one({'name' : request.form['username']})
+        # username =  request.form['options[]']
+        username = request.form.getlist('options[]')
+        print(len(username))
+        for i in username:
+            print(i)
+        print(session['username'])
+        login_user = db1.userdata.find_one({'name' : session['username']})
         print(login_user)
 
         
@@ -89,18 +94,12 @@ def file_upload():
                 data['Name'] = 'Folder CID'
             print("%s: %s" % (data['Name'], data['Hash']))
             x = data["Hash"]
-
-            # with open("public.pem","rb") as f:
-            #     publicKey = rsa.PublicKey.load_pkcs1(f.read())
-            # encrypted_data = encrypt_data(data['Hash'],publicKey)
-            # h = data['Hash']
-            # connect=RedisPublish('127.0.0.1',6379,username)
-            # connect.Redis_publish(json.dumps({username:x}))
             if login_user:
-                # connect=RedisPublish('127.0.0.1',6379,username)
-                # connect.Redis_publish(json.dumps({username:x}))
+                for i in username:
+                    connect=RedisPublish('127.0.0.1',6379,i)
+                    connect.Redis_publish(json.dumps({i:x}))
                     
-                db.filedata.insert_one({"username" : username, "filehash": x})
+                db.filedata.insert_one({"username" : username, "filehash": x,"filename" : file.filename})
                 print(db)
                 print("inserted")
 
@@ -108,6 +107,7 @@ def file_upload():
 
         # return "<h2>Click this link{}</h2>".format(x)
             # https://VASDoc.infura-ipfs.io/ipfs/
+
             
             gateway="https://VASDoc.infura-ipfs.io/ipfs/"
             print(requests.get(url=gateway+data['Hash']).text)

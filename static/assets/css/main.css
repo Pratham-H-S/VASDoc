@@ -33,6 +33,13 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+footer#footer {
+    background-image: url(https://res.cloudinary.com/cloudinary-marketing/images/w_2000,h_1100/f_auto,q_auto/v1647266871/Automated-Upload_Sharing/Automated-Upload_Sharing-png?_i=AA);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	
+}
 
 ol, ul {
 	list-style: none;
@@ -3548,7 +3555,7 @@ input, select, textarea {
 
 	#footer {
 		background: #272833;
-		padding: 6em 0;
+		padding: 5em 0;
 		text-align: center;
 	}
 
