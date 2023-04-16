@@ -1,5 +1,5 @@
 
-from flask import Flask , Blueprint, render_template,redirect ,request,send_file,session
+from flask import Flask , Blueprint, render_template,redirect ,request,send_file,session,url_for
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -39,10 +39,11 @@ db1 = cl["userdata"]
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '42jk3234kjhsejfirewoiofh32jfk'
-app.config['UPLOAD_FOLDER'] = 'D:/VASDoc/static/_files/'
-app.config['UPLOAD_FOLDERR'] = 'D:/VASDoc/static/_files/'
+app.config['UPLOAD_FOLDER'] = (os.getcwd()+r"\\static\\_files\\")
+app.config['UPLOAD_FOLDERR'] = (os.getcwd()+r"\\static\\_files\\")
 items = {}
-dir_name = 'D:/VASDoc/static/_files/'
+dir_name = (os.getcwd()+r"\\static\\_files\\")
+
 
 
 class UploadFileForm(FlaskForm):
@@ -56,14 +57,8 @@ def file_upload():
     form = UploadFileForm()
     if request.method == 'POST' :
         # username =  request.form['options[]']
-        username = request.form.getlist('options[]')
-        print(len(username))
-        for i in username:
-            print(i)
-        print(session['username'])
+        username = request.form.getlist('options[]')       
         login_user = db1.userdata.find_one({'name' : session['username']})
-        print(login_user)
-
         
         file = request.files['file'] # First grab the file
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
@@ -118,7 +113,7 @@ def file_upload():
 
             
             # return redirect("https://VASDoc.infura-ipfs.io/ipfs/"+x)
-            return render_template('Profile.html')
+            return redirect(url_for("Profile.profile"))
     return render_template('file_upload.html', form=form)
 
 
