@@ -3,25 +3,36 @@ import face_recognition
 import numpy as np
 import os
 from mongo_files import get_image,delete_all
+from pymongo import  MongoClient
+
+# # Load a sample picture and learn how to recognize it.
+# krish_image = face_recognition.load_image_file("Krish/krish.jpg")
+# krish_face_encoding = face_recognition.face_encodings(krish_image)[0]
+
+# # Load a second sample picture and learn how to recognize it.
+# bradley_image = face_recognition.load_image_file("Bradley/bradley.jpg")
+# bradley_face_encoding = face_recognition.face_encodings(bradley_image)[0]
+
+# Create
+known_face_encodings=[]
+known_face_names=[]
+
 
 camera = cv2.VideoCapture(0)
+
+for dirpath,dirname,filenames in os.walk(os.getcwd()+os.getcwd()+r'\\images_from_mongo_training\\'):
+    for f in filenames:
+        image = face_recognition.load_image_file(f)
+        face_encoding = face_recognition.face_encodings(image)[0]
+        known_face_encodings.append(face_encoding)
+        known_face_names.append(f)
 face_locations = []
 face_encodings = []
 face_names = []
 process_this_frame = True
-known_face_names = []
-known_face_encodings=[]
 
-image = face_recognition.load_image_file("image.jpg")
-face_encoding = face_recognition.face_encodings(image)[0]
-known_face_encodings.append(face_encoding)
-known_face_names.append("pratham")
 
-def trainmodel(username):
-    image = face_recognition.load_image_file("image.jpg")
-    face_encoding = face_recognition.face_encodings(image)[0]
-    known_face_encodings.append(face_encoding)
-    known_face_names.append(username)
+    
 
 def gen_frames():  
     while True:
@@ -49,10 +60,7 @@ def gen_frames():
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
-                '''
-                compare names to username break and either login or to go back o register page
 
-                '''
                 face_names.append(name)
             
 
