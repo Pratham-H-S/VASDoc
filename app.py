@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 import os
 import time
 import requests
+import json
 from dotenv import load_dotenv
 load_dotenv() 
 from File_Decryption import decrypt_data
@@ -149,6 +150,9 @@ def set_up(known_face_encodings,known_face_names):
                 face_encoding = face_recognition.face_encodings(image)[0]
                 known_face_encodings.append(face_encoding)
                 known_face_names.append(str(f.split("_")[0][:-1]))
+                json_object = json.dumps({"name":str(f.split("_")[0][:-1])})
+                with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
+                    outfile.write(json_object)
     face_locations = []
     face_encodings = []
     face_names = []
@@ -185,6 +189,9 @@ def gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
+                    # json_object = json.dumps({"name":name})
+                    # with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
+                    #     outfile.write(json_object)
 
                 face_names.append(name)
             
@@ -220,6 +227,8 @@ def face_recognition_1():
 
 @app.route('/face')
 def face():
+    with open(os.getcwd()+r"\\images_from_mongo_training\\name.json","r") as openfile:
+        print(json.load(openfile))
     return render_template('face.html')
 
 if __name__ == '__main__':
