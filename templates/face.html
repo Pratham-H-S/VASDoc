@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<h1>Face Recognition</h1>
+<br>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <img src="{{ url_for('face_recognition_1') }}" width="800" alt="loading" height="500">
+        <!-- <a href="{{ url_for('Profile.profile') }}">Login</a> -->
+    </div>
+  </div>
+</section>
+
+{% endblock %}

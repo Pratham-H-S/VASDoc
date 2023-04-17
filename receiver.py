@@ -2,9 +2,9 @@ import redis
 import time
 
 def connect():
-        connection=redis.Redis('127.0.0.1',6379,)
+        connection=redis.Redis('127.0.0.1',6379,decode_responses=True)
         subscriber=connection.pubsub()
-        subscriber.subscribe(["pratham"])
+        subscriber.subscribe("pratham")
         
         msg = []
         

@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 import os
 import time
 import requests
+import json
 from dotenv import load_dotenv
 load_dotenv() 
 from File_Decryption import decrypt_data
@@ -88,7 +89,7 @@ def login():
         return render_template("index.html")
     if request.method=="POST" and request.form.get("face") is not None and 'username' in request.form:
             session['messages'] =  request.form['username'] 
-            return redirect('/face_recognition')
+            return redirect('/face')
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
@@ -148,21 +149,25 @@ def set_up(known_face_encodings,known_face_names):
 
     for dirpath,dirname,filenames in os.walk(os.getcwd()+r'\\images_from_mongo_training\\'):
         for f in filenames:
-            if int(f.split("image")[-1].split(".")[0])%10==0:
+            if int(f.split("image")[-1].split(".")[0])%3==0:
                 image = face_recognition.load_image_file("images_from_mongo_training\\"+f)
                 face_encoding = face_recognition.face_encodings(image)[0]
                 known_face_encodings.append(face_encoding)
-                known_face_names.append(str(f.split(".")[0][:-2]))
-
+                known_face_names.append(str(f.split("_")[0][:-1]))
+                json_object = json.dumps({"name":str(f.split("_")[0][:-1])})
+                with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
+                    outfile.write(json_object)
     face_locations = []
     face_encodings = []
     face_names = []
     process_this_frame = True
+    return face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame
 
 
     
 
-def gen_frames(camera,known_face_names,known_face_encodings):  
+def gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame):
+    camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame=camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame
     while True:
         success, frame = camera.read()  # read the camera frame
         if not success:
@@ -188,6 +193,9 @@ def gen_frames(camera,known_face_names,known_face_encodings):
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
+                    # json_object = json.dumps({"name":name})
+                    # with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
+                    #     outfile.write(json_object)
 
                 face_names.append(name)
             
@@ -213,15 +221,19 @@ def gen_frames(camera,known_face_names,known_face_encodings):
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/face_recognition')
-def video_feed():
+@app.route('/face_recognition_1')
+def face_recognition_1():
     camera = cv2.VideoCapture(0)
     known_face_encodings=[]
     known_face_names=[]
-    set_up(known_face_encodings,known_face_names)
-    return Response(gen_frames(camera,known_face_names,known_face_encodings), mimetype='multipart/x-mixed-replace; boundary=frame')
+    face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame=set_up(known_face_encodings,known_face_names)
+    return Response(gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
+@app.route('/face')
+def face():
+    with open(os.getcwd()+r"\\images_from_mongo_training\\name.json","r") as openfile:
+        print(json.load(openfile))
+    return render_template('face.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0',debug= True)
