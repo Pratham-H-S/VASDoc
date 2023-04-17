@@ -20,7 +20,7 @@ from pymongo import MongoClient
 from Profile import Profile , profile
 from AddReceiver import AddReceiver
 from streaming import StreamingVideoCamera,gen
-from mongo_files import add_files_to_mongo,get_image,delete_imges_in_folder
+from mongo_files import add_files_to_mongo,get_image,delete_imges_in_folder,get_img
 from GenKeys import GenKeys
 import cv2
 import face_recognition
@@ -28,6 +28,7 @@ import cv2
 import face_recognition
 import numpy as np
 import os
+from Received_files import Received_files
 
 # from facerecognition import gen_frames
 #URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
@@ -73,6 +74,7 @@ app.register_blueprint(Profile, url_prefix = "")
 app.register_blueprint(Verify,url_prefix="")
 app.register_blueprint(AddReceiver,url_prefix="")
 app.register_blueprint(GenKeys,url_prefix="")
+app.register_blueprint(Received_files,url_prefix ="")
 
 @app.route('/download')
 def file_download():
@@ -86,7 +88,7 @@ def login():
         return render_template("index.html")
     if request.method=="POST" and request.form.get("face") is not None and 'username' in request.form:
             session['messages'] =  request.form['username'] 
-            return redirect('/facerecognition')
+            return redirect('/face_recognition')
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
@@ -112,6 +114,7 @@ def register():
             db.userdata.insert_one({'name' : request.form['name'] , 'password' : hashpass , 'email' : request.form['email']})
             session['messages'] =  request.form['name'] 
             session['username'] = request.form['name']
+            
             return redirect('/video')
         else:
             print(existing_user)

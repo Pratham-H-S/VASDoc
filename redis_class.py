@@ -6,7 +6,6 @@ class Redis:
         self.port=port
         self.id=id
         self.connection=redis.Redis(host=self.host,port=self.port,decode_responses=True)
-
 class RedisPublish(Redis):
     def __init__(self,host,port,id):
         super().__init__(host,port,id)

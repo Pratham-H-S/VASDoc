@@ -4,14 +4,15 @@ from PIL import Image
 from redis_class import RedisPublish
 import json
 from flask import Blueprint ,session ,render_template
-from mongo_files import get_image
+from mongo_files import get_img
 import chardet
 
 GenKeys = Blueprint("GenKeys",__name__,static_folder="static",template_folder="templates") 
 @GenKeys.route("/genKeys")
 
 def genKeys():
-  j = get_image(session['username'])
+  j = get_img(session['username'])
+  
   print(j)
   val = 0
   for i in range(0,len(j)):
