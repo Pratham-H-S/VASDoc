@@ -28,7 +28,6 @@ import cv2
 import face_recognition
 import numpy as np
 import os
-
 # from facerecognition import gen_frames
 #URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
 URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
@@ -86,7 +85,7 @@ def login():
         return render_template("index.html")
     if request.method=="POST" and request.form.get("face") is not None and 'username' in request.form:
             session['messages'] =  request.form['username'] 
-            return redirect('/facerecognition')
+            return redirect('/face')
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         login_user = db.userdata.find_one({'name' : request.form['username']})
@@ -145,21 +144,22 @@ def set_up(known_face_encodings,known_face_names):
 
     for dirpath,dirname,filenames in os.walk(os.getcwd()+r'\\images_from_mongo_training\\'):
         for f in filenames:
-            if int(f.split("image")[-1].split(".")[0])%10==0:
+            if int(f.split("image")[-1].split(".")[0])%3==0:
                 image = face_recognition.load_image_file("images_from_mongo_training\\"+f)
                 face_encoding = face_recognition.face_encodings(image)[0]
                 known_face_encodings.append(face_encoding)
-                known_face_names.append(str(f.split(".")[0][:-2]))
-
+                known_face_names.append(str(f.split("_")[0][:-1]))
     face_locations = []
     face_encodings = []
     face_names = []
     process_this_frame = True
+    return face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame
 
 
     
 
-def gen_frames(camera,known_face_names,known_face_encodings):  
+def gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame):
+    camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame=camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame
     while True:
         success, frame = camera.read()  # read the camera frame
         if not success:
@@ -210,15 +210,17 @@ def gen_frames(camera,known_face_names,known_face_encodings):
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/face_recognition')
-def video_feed():
+@app.route('/face_recognition_1')
+def face_recognition_1():
     camera = cv2.VideoCapture(0)
     known_face_encodings=[]
     known_face_names=[]
-    set_up(known_face_encodings,known_face_names)
-    return Response(gen_frames(camera,known_face_names,known_face_encodings), mimetype='multipart/x-mixed-replace; boundary=frame')
+    face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame=set_up(known_face_encodings,known_face_names)
+    return Response(gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
+@app.route('/face')
+def face():
+    return render_template('face.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0',debug= True)
