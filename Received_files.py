@@ -28,7 +28,7 @@ def received_files_modified():
         subscriber=connection.pubsub()
         subscriber.subscribe("pratham")
         for message in subscriber.listen():
-                yield message()
+                yield message
     return Response(streaming_response(),mimetype="text/event-stream")
 
 '''
