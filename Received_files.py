@@ -21,14 +21,14 @@ def received_files():
     else:
         return render_template("Received_files.html",msg = msg)
 
-
+@Received_files.route("/Received_files1")
 def received_files_modified():
     def streaming_response():
-        connection=redis.Redis('127.0.0.1',6379,decode_responses=True)
+        connection=redis.Redis('127.0.0.1',6379)
         subscriber=connection.pubsub()
         subscriber.subscribe("pratham")
         for message in subscriber.listen():
-                yield message
+                yield "data: {}\n\n".format(message)
     return Response(streaming_response(),mimetype="text/event-stream")
 
 '''
