@@ -11,13 +11,25 @@ Received_files = Blueprint("received_files",__name__,static_folder="static",temp
 
 def received_files():
     msg=[]
-    for i in connect():
-        msg.append(i)
+    connection=redis.Redis('127.0.0.1',6379,decode_responses=True)
+    subscriber=connection.pubsub()
+    subscriber.subscribe("pratham")
+    for message in subscriber.listen():
+            msg.append(message)
     if msg is None:
         return Response("No data")
     else:
         return render_template("Received_files.html",msg = msg)
-    
+
+
+def received_files_modified():
+    def streaming_response():
+        connection=redis.Redis('127.0.0.1',6379,decode_responses=True)
+        subscriber=connection.pubsub()
+        subscriber.subscribe("pratham")
+        for message in subscriber.listen():
+                yield message()
+    return Response(streaming_response(),mimetype="text/event-stream")
 
 '''
 Try this too its directly using the class
