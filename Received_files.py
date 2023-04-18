@@ -10,8 +10,9 @@ Received_files = Blueprint("received_files",__name__,static_folder="static",temp
 @Received_files.route("/Received_files")
 
 def received_files():
-    msg = []
-    msg = connect()
+    msg=[]
+    for i in connect():
+        msg.append(i)
     if msg is None:
         return Response("No data")
     else:
