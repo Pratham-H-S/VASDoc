@@ -53,4 +53,4 @@ def delete_imges_in_folder():
 
 # get_image()
 # delete_imges_in_folder()
-delete_all()
+# delete_all()

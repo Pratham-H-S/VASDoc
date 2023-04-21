@@ -6,11 +6,11 @@
 <li>
   <a href="#">Services</a>
   <ul>
-    <li><a href="#">Approve docs</a></li>
+    <li><a href="{{ url_for('Approve.approve') }}">Approve docs</a></li>
     <li><a href="{{ url_for('Verify.verify') }}">Verify Doc Sign</a></li>
     <li><a href="{{ url_for('File_upload.file_upload')}}">Upload File</a></li>
     <li><a href="{{ url_for('AddReceiver.addReceiver')}}">Add Receivers</a></li>
-    <li><a href="{{ url_for('received_files.received_files_modified')}}">Received files</a></li>
+    <li><a href="{{ url_for('received_files.received_files')}}">Received files</a></li>
   </ul>
 </li>
 <li><a href="{{ url_for('logout') }}">Logout </a></li>
@@ -48,11 +48,7 @@ style="
             </div>
           </div>
           <br>
-          <!-- <ul>
-            {% for item in files %}
-                <li>{{ item }}</li>
-            {% endfor %}
-            </ul> -->
+          
 
           <div class="row">
             <div class="col-md-6">

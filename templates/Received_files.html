@@ -1,9 +1,137 @@
 {% extends "base.html" %}
+{% block nav %}
+
+
+<li>
+  <a href="#">Services</a>
+  <ul>
+    <li><a href="{{ url_for('Approve.approve') }}">Approve docs</a></li>
+    <li><a href="{{ url_for('Verify.verify') }}">Verify Doc Sign</a></li>
+    <li><a href="{{ url_for('File_upload.file_upload')}}">Upload File</a></li>
+    <li><a href="{{ url_for('AddReceiver.addReceiver')}}">Add Receivers</a></li>
+    <li><a href="{{ url_for('received_files.received_files')}}">Received files</a></li>
+  </ul>
+</li>
+<li><a href="{{ url_for('logout') }}">Logout </a></li>
+
+{% endblock %}
 
 {% block content %}
 
-{% for i in msg %}
-{{i}}
-{% endfor %}
+<section
+    
+class="bg-image"
+style="
+  background-image: url(https://static.vecteezy.com/system/resources/previews/000/696/278/original/textured-black-background-vector.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+">
+<br>
+<br>
+    <div class="container py-5"
+        
+    >
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <p class="mb-4"><span class="text-primary font-italic me-1">File Hash</span> 
+              </p>
+              {% for item in file_hash %}
+              <p class="mb-1" style="font-size: .88rem;"  >{{ item }}</p>                 
+             
+              <div class="progress rounded" style="height: 5px;">
+                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                  aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              
+              {% endfor %}
+          
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1">File name</span> 
+                </p>
+                {% for item in file_name %}
+                <p class="mb-1" style="font-size: .88rem;" >{{ item }}</p>                 
+               
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                {% endfor %}
+            
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1">Received From</span> 
+                </p>
+                {% for item in received_from %}
+                <p class="mb-1" style="font-size: .88rem;"  >{{ item }}</p>                 
+               
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                {% endfor %}
+            
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1">Document status</span> 
+                </p>
+                
+                {% for file_hash , file_name in zip(file_hash,file_name) %}
+                <a class="mb-1" style="font-size: .88rem;" href= "/Approve?fileHash={{ file_hash }}:{{ file_name }}" >Approve</a>                 
+               
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                {% endfor %}
+                  
+                
 
+
+            
+              </div>
+            </div>
+          </div>
+        
+    
+          
+          
+      </div>
+      </div>
+      <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    </div>
+</section>
 {% endblock %}
+  

@@ -1,44 +1,34 @@
-from flask import Blueprint,render_template,Response
-from receiver import connect
-import redis
-from redis_class import RedisSubscribe
+from flask import Blueprint,render_template,Response,session
+from pymongo import MongoClient
 
 
 
 Received_files = Blueprint("received_files",__name__,static_folder="static",template_folder="templates")
+URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
+
+cl = MongoClient(URL)
+db = cl["filedata"]
 
 @Received_files.route("/Received_files")
 
 def received_files():
-    msg=[]
-    connection=redis.Redis('127.0.0.1',6379,decode_responses=True)
-    subscriber=connection.pubsub()
-    subscriber.subscribe("pratham")
-    for message in subscriber.listen():
-            msg.append(message)
-    if msg is None:
-        return Response("No data")
+    found = db.filedata.find({'to':session['username']})
+    received_from = []
+    file_hash = []
+    file_name = []
+    if found:
+        for f in found:
+            file_hash.append(f["filehash"])
+            file_name.append(f["filename"])
+            received_from.append(f["from"])            
     else:
-        return render_template("Received_files.html",msg = msg)
+        return "No data"
+    
+    return render_template("Received_files.html",file_hash=file_hash,file_name = file_name,received_from= received_from,zip=zip)
 
-@Received_files.route("/Received_files1")
-def received_files_modified():
-    def streaming_response():
-        connection=redis.Redis('127.0.0.1',6379)
-        subscriber=connection.pubsub()
-        subscriber.subscribe("pratham")
-        for message in subscriber.listen():
-                yield "data: {}\n\n".format(message)
-    return Response(streaming_response(),mimetype="text/event-stream")
+        
+    
 
-'''
-Try this too its directly using the class
-'''
-def recieved_files_2():
-    msg=[]
-    rd=RedisSubscribe('127.0.0.1',6379,"pratham")
-    for i in rd.Redis_subscribe():
-        msg.append(i)
-    print(i)
+
     
 

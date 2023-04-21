@@ -89,14 +89,11 @@ def file_upload():
                 data['Name'] = 'Folder CID'
             print("%s: %s" % (data['Name'], data['Hash']))
             x = data["Hash"]
+            # db.filedata.delete_many({})
             if login_user:
                 for i in username:
-                    connect=RedisPublish('127.0.0.1',6379,i)
-                    connect.Redis_publish(json.dumps({i:x}))
-                    
-                db.filedata.insert_one({"username" : username, "filehash": x,"filename" : file.filename})
-                print(db)
-                print("inserted")
+                    db.filedata.insert_one({"from": session['username'],"to" : i, "filehash": x,"filename" : file.filename})
+                
 
             # https://VASDoc.infura-ipfs.io/ipfs/
 

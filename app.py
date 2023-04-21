@@ -30,6 +30,8 @@ import face_recognition
 import numpy as np
 import os
 from Received_files import Received_files
+from Approve import Approve
+
 
 # from facerecognition import gen_frames
 #URL="mongodb://prajodhpragaths:Speed007@ac-9dsbmxa-shard-00-00.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-01.spncele.mongodb.net:27017,ac-9dsbmxa-shard-00-02.spncele.mongodb.net:27017/?ssl=true&replicaSet=atlas-rf01o5-shard-0&authSource=admin&retryWrites=true&w=majority"
@@ -76,6 +78,7 @@ app.register_blueprint(Verify,url_prefix="")
 app.register_blueprint(AddReceiver,url_prefix="")
 app.register_blueprint(GenKeys,url_prefix="")
 app.register_blueprint(Received_files,url_prefix ="")
+app.register_blueprint(Approve,url_prefix ="")
 
 @app.route('/download')
 def file_download():
