@@ -32,5 +32,6 @@ def genKeys():
   print(pubKey)
 
   return render_template("file_download.html")
+
 # print("Public key: (" + hex(pubKey[0]) + ", " + hex(pubKey[1]) + ")")
 

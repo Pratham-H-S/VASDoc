@@ -1,16 +1,41 @@
-import rsa
 
-with open("private.pem" , "rb") as f:
-    private_key = rsa.PrivateKey.load_pkcs1(f.read())
 
-# msg = "This file is signed using private key and verified using public key"
+from pycoin.ecdsa import generator_secp256k1, sign
+import hashlib
 
-with open("test.txt","r") as f:
-    msg = f.read()
+# msg = 'QmcJVKBDzuSLuVu6sW7AWpBdMWu4imR6oCxWFBverWdcXw'
 
-signed_file = rsa.sign(msg.encode(),private_key,"SHA-256")
+# privKey = 345678909876543456789765434567896543456789
 
-print(signed_file)
+def signm(msg,privKey,generator_secp256k1,hashlib,sign):
+  
+  hashBytes = hashlib.sha3_256(msg.encode("utf8")).digest()
+  hashBytes= int.from_bytes(hashBytes, byteorder="big")  
+  signature = sign(generator_secp256k1, privKey, hashBytes)
+  return signature
+  
+  
+# print(signm(msg,privKey,generator_secp256k1,hashlib,sign))
 
-with open("sign.txt","wb") as f:
-    f.write(signed_file)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
