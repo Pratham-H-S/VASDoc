@@ -1,4 +1,4 @@
-from flask import render_template , Blueprint,request,send_file,redirect,url_for
+from flask import render_template , Blueprint,request,send_file,redirect,url_for,session
 import requests
 from cryptography.fernet import Fernet
 import os
@@ -6,6 +6,7 @@ from file_sign import signm
 from pycoin.ecdsa import generator_secp256k1, sign
 import hashlib
 from pymongo import MongoClient
+from pymongo import ReturnDocument
 
 Approve = Blueprint("Approve" , __name__, static_folder="static" ,template_folder="templates")
 
@@ -44,25 +45,26 @@ def approve():
         # msg = 'QmcJVKBDzuSLuVu6sW7AWpBdMWu4imR6oCxWFBverWdcXw'
         msg = fileHash
         # privKey = 10723831103338713018195600
-        if status == "Approve & Sign":
+        if status == "Approve":
             msg = fileHash
             signature = signm(msg,privKey,generator_secp256k1,hashlib,sign)
             found = db.filedata.find({"filehash":fileHash})
-            print(type(signature))
-            print(len(signature))
-            print(signature)
+            approved = db1.approve_file.find_one({"filehash":fileHash})
             signature = str(signature)
-            if found:
+            if found and not approved :
                 for f in found:
                     received_from = f["from"]
-                    db1.approve_file.insert_one({"filehash":fileHash,"filename":filename,"received_from":received_from,"signature":signature,"status":"Approved","feedback":comment})
+                    db.filedata.find_one_and_update({'filehash':fileHash},{"$set":{"signature":signature,"status":"approved","feedback":comment}})
+                    # db1.approve_file.insert_one({"filehash":fileHash,"filename":filename,"received_from":received_from,"to": session["username"],"signature":signature,"status":"Approved","feedback":comment})
             return redirect(url_for("Profile.profile"))
         else:
             found = db.filedata.find({"filehash":fileHash})
-            if found:
+            approved = db1.approve_file.find_one({"filehash":fileHash})
+            if found and not approved:
                 for f in found:
                     received_from = f["from"]
-            db1.approve_file.insert_one({"filehash":fileHash,"filename":filename,"received_from":received_from,"status":"UnApproved"})
+                db.filedata.find_one_and_update({'filehash':fileHash},{"$set":{"signature":"none","status":"unapproved","feedback":comment}})
+                # db1.approve_file.insert_one({"filehash":fileHash,"filename":filename,"received_from":received_from,"to": session["username"],"status":"UnApproved"})
             return redirect(url_for("Profile.profile"))
 
 

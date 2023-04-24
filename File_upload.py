@@ -92,7 +92,7 @@ def file_upload():
             # db.filedata.delete_many({})
             if login_user:
                 for i in username:
-                    db.filedata.insert_one({"from": session['username'],"to" : i, "filehash": x,"filename" : file.filename})
+                    db.filedata.insert_one({"from": session['username'],"to" : i, "filehash": x,"filename" : file.filename,"signature":"none","status":"none","feedback":"none"})
                 
 
             # https://VASDoc.infura-ipfs.io/ipfs/

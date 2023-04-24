@@ -5,6 +5,7 @@ URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
 
 cl = MongoClient(URL)
 db1 = cl["filedata"]
+db = cl["approve_file"]
 
 
 Profile = Blueprint("Profile", __name__, static_folder= "static", template_folder="template")
@@ -13,7 +14,28 @@ Profile = Blueprint("Profile", __name__, static_folder= "static", template_folde
 @Profile.route("/Profile")
 def profile():
     files = []
-    filedata = db1.filedata.find({"username" : session['username'] })
+    filehash = []
+    filename =[]
+    to = []
+    feedback = []
+    status = []
+    filedata = db1.filedata.find({"from" : session['username'] })
+    # found = db.approve_file.find({"received_from":session['username']})
     for f in filedata:
-        files.append(f["filehash"])
-    return render_template("Profile.html",files=files)
+        
+        filehash.append(f["filehash"])
+        filename.append(f["filename"])
+        to.append(f["to"])  
+        if  f["feedback"]:
+            feedback.append(f["feedback"]) 
+        else:
+            feedback.append("No feedback")
+        if f["status"]:
+            status.append(f["status"])
+        else:
+            status.append("unapproved")
+    print(filehash)
+    print(feedback)
+    print(status)
+
+    return render_template("Profile.html",filehash = filehash,filename = filename,to = to,feedback= feedback,status = status)
