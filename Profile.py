@@ -34,8 +34,6 @@ def profile():
             status.append(f["status"])
         else:
             status.append("unapproved")
-    print(filehash)
-    print(feedback)
-    print(status)
+
 
     return render_template("Profile.html",filehash = filehash,filename = filename,to = to,feedback= feedback,status = status)
