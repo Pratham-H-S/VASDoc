@@ -1,14 +1,6 @@
-<h3>HELLO  {{username}}</h3>
-    
-    
-    {% block content %}
-    
-    {% for i in tlist %}
-    {% if i.username == username %}
-    <li>{{i.age}}</li>
-    <li>{{i.name}}</li>
-    <li>{{i.due_date}}</li>
-    {% endif %}
-    {% endfor %}
 
-    {% endblock %}
+1)List the titles of all movies directed by 'nolan' ??	
+	select mov_title from movies109 where dir_id in 
+	( select dir_id from director109 where dir_name = 'nolan');
+
+2)	

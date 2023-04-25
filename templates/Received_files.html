@@ -98,9 +98,8 @@ style="
                 
                 {% for file_hash , file_name in zip(file_hash,file_name) %}
                 <a class="mb-1" style="font-size: .88rem;" href= "/Approve?fileHash={{ file_hash }}:{{ file_name }}" >Approve</a>                 
-               <br>
-               <br>
-                <div class="progress rounded" style="height: 5px;">
+              
+                <div class="progress rounded" style="height: 20px;">
                   <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
