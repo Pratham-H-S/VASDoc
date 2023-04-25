@@ -157,9 +157,6 @@ def set_up(known_face_encodings,known_face_names):
                 face_encoding = face_recognition.face_encodings(image)[0]
                 known_face_encodings.append(face_encoding)
                 known_face_names.append(str(f.split("_")[0][:-1]))
-                json_object = json.dumps({"name":str(f.split("_")[0][:-1])})
-                with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
-                    outfile.write(json_object)
     face_locations = []
     face_encodings = []
     face_names = []
@@ -196,12 +193,8 @@ def gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
-                    # json_object = json.dumps({"name":name})
-                    # with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
-                    #     outfile.write(json_object)
 
                 face_names.append(name)
-            
 
             # Display the results
             for (top, right, bottom, left), name in zip(face_locations, face_names):
@@ -212,12 +205,15 @@ def gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_
                 left *= 4
 
                 # Draw a box around the face
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+                cv2.rectangle(frame, (left, top), (right, bottom), (0, 225, 0), 2)
 
                 # Draw a label with a name below the face
-                cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+                cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
                 font = cv2.FONT_HERSHEY_DUPLEX
                 cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+                json_object = json.dumps({"name":name})
+                with open(os.getcwd()+r"\\images_from_mongo_training\\name.json", "w") as outfile:
+                        outfile.write(json_object)
 
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
@@ -230,13 +226,16 @@ def face_recognition_1():
     known_face_encodings=[]
     known_face_names=[]
     face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame=set_up(known_face_encodings,known_face_names)
+    userna=session['messages']
     return Response(gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
+userna=""
 @app.route('/face')
 def face():
-    with open(os.getcwd()+r"\\images_from_mongo_training\\name.json","r") as openfile:
-        print(json.load(openfile))
     return render_template('face.html')
+        
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0',debug= True)
