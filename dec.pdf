@@ -1,6 +1,0 @@
-
-1)List the titles of all movies directed by 'nolan' ??	
-	select mov_title from movies109 where dir_id in 
-	( select dir_id from director109 where dir_name = 'nolan');
-
-2)	

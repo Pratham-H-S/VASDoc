@@ -7,6 +7,7 @@ from pycoin.ecdsa import generator_secp256k1, sign
 import hashlib
 from pymongo import MongoClient
 from pymongo import ReturnDocument
+import datetime
 
 Approve = Blueprint("Approve" , __name__, static_folder="static" ,template_folder="templates")
 
@@ -33,7 +34,7 @@ def approve():
     data = requests.get(url=gateway+fileHash).text
     decrypted_file =  fernet.decrypt(data)
     
-    with open(os.getcwd()+r"\\dec_downloads\\"+"dec."+extension[1],'wb') as f:
+    with open(os.getcwd()+r"\\dec_downloads\\"+"dec"+datetime.datetime.now().strftime("%Y-%m-%H-%M-%S")+"."+extension[1],'wb') as f:
         f.write(decrypted_file)
     if request.method == 'POST':
         privKey = request.form['privateKey']
