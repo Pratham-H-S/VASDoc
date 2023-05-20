@@ -91,7 +91,7 @@ def login():
     if "username" in session:
         return render_template("index.html")
     if request.method=="POST" and request.form.get("face") is not None and 'username' in request.form:
-            session['messages'] =  request.form['username'] 
+            session['username'] =  request.form['username'] 
             return redirect('/face')
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -116,7 +116,7 @@ def register():
             # hashpass = generate_password_hash(request.form['password'])
             # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8') , bcrypt.gensalt())
             db.userdata.insert_one({'name' : request.form['name'] , 'password' : hashpass , 'email' : request.form['email']})
-            session['messages'] =  request.form['name'] 
+            session['username'] =  request.form['name'] 
             session['username'] = request.form['name']
             
             return redirect('/video')
@@ -137,7 +137,7 @@ def video():
 
 @app.route('/video_register', methods=['GET',"POST"])
 def video_registeration():
-    username = session['messages']
+    username = session['username']
     cam = StreamingVideoCamera(username)
     return Response(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
 

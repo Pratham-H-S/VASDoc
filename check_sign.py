@@ -1,17 +1,8 @@
-import rsa 
+from pycoin.ecdsa import generator_secp256k1, sign, verify
+import hashlib, secrets
 
-with open("pub.pem","rb") as f:
-    public_key = rsa.PublicKey.load_pkcs1(f.read())
-
-with open("sign.txt" ,"rb") as f:
-    signed_text = f.read()
-
-with open("test.txt","r") as f:
-    msg = f.read()
-
-verified = rsa.verify(msg.encode(),signed_text,public_key)
-
-if verified == "SHA-256":
-    print("verification success")
-else:
-    print("error")
+def  verifym(msg,pubKey,generator_secp256k1,hashlib,signature,verify):
+  hashBytes = hashlib.sha3_256(msg.encode("utf8")).digest()
+  hashBytes =  int.from_bytes(hashBytes, byteorder="big")
+  validated =  verify(generator_secp256k1, pubKey, hashBytes, signature)
+  return validated

@@ -51,6 +51,12 @@ def delete_imges_in_folder():
       for f in filenames:
          os.remove(dirpath+r"\\"+f)
 
+# import json
+# def read():
+#     with open(os.getcwd()+r"\\name.json", "r") as outfile:
+#                         print(json.load(outfile))
+
+
 # get_image()
 # delete_imges_in_folder()
 # delete_all()
