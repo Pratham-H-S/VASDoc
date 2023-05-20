@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block nav %} 
-
 {% if session['username'] %}
 <li><a href="{{ url_for('Profile.profile') }}"><i class="fa fa-fw fa-user"></i>Hello {{ g.username }}</a></li>
 {% endif %}
@@ -133,7 +132,7 @@
 				</section> -->
 
 			<!-- Five -->
-				<section id="five" class="wrapper style2 special fade">
+				<!-- <section id="five" class="wrapper style2 special fade">
 					<div class="container">
 						<header>
 							<h2>Magna faucibus lorem diam</h2>
@@ -146,7 +145,7 @@
 							</div>
 						</form>
 					</div>
-				</section>
+				</section> -->
 				<footer id="footer">
 					<ul class="icons" >
 						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>

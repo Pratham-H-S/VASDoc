@@ -1,10 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+	.button {
+  background-color: #4c53af; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
 
-<section class="vh-100">
-  <div class="container py-5 h-100"
+</style>
+
+<section class="vh-100" style="
+background-image: url(https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
+
+">
   
-  >
+  <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
     
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
@@ -14,24 +34,24 @@
           <!-- Email input -->
           <div class="form-outline mb-4">
             <input type="text"  class="form-control form-control-lg"  name = "name"/>
-            <label class="form-label" for="form1Example13">User Name</label>
+            <label class="form-label" for="form1Example13"><strong>User Name</strong></label>
           </div>
           <div class="form-outline mb-4">
             <input type="text"  class="form-control form-control-lg" name="email" />
-            <label class="form-label" for="form1Example13"> Email</label>
+            <label class="form-label" for="form1Example13"><strong>Email</strong></label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
             <input type="password" id="form1Example23" class="form-control form-control-lg" name = "password" />
-            <label class="form-label" for="form1Example23">Password</label>
+            <label class="form-label" for="form1Example23"><strong>Password</strong></label>
           </div>
 
 
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-secondary btn-lg btn-block">Register</button>
-
+          <button type="submit" class="button">Register</button>
+          <br><br><br><br><br><br>
 
         </form>
       </div>

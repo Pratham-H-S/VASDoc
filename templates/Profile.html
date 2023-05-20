@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-
+<style>
+  h1{
+    color: yellow;
+  }
+</style>
 
 <li>
   <a href="#">Services</a>
@@ -54,12 +58,15 @@ style="
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">File Hash of the document</span> 
-                  </p>
-                  {% for item in files %}
+                  <h1 class="mb-4"><span class="text-primary font-italic me-1">File Hash of the document</span> 
+                  </h1>
+                  {% for item in filehash %}
+                  
                   <a class="mb-1" style="font-size: .77rem;" href="https://VASDoc.infura-ipfs.io/ipfs/{{ item }}" >{{ item }}</a>                 
+                 <br>
                  
-                  <div class="progress rounded" style="height: 5px;">
+
+                  <div class="progress rounded" style="height: 20px;">
                     <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                       aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -72,42 +79,79 @@ style="
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Number of documents submitted</span> 
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">10</p>
-                  <div class="progress rounded" style="height: 5px;">
+                  <h1 class="mb-4"><span class="text-primary font-italic me-1">Receiver </span> 
+                  </h1>
+                  {% for item in to %}
+                  
+                  <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
+                  
+                  <div class="progress rounded" style="height: 1px;">
                     <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                       aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <h1 class="mb-4"><span class="text-primary font-italic me-1">Document Name</span> 
+                  </h1>
+                  {% for item in filename %}
                   
+                  <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
+                  
+                  <div class="progress rounded" style="height: 1px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
             <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">Document Feedback</span> 
-                    </p>
-                    <p class="mb-1" style="font-size: .77rem;">Change footer</p>
+                    <h1 class="mb-4"><span class="text-primary font-italic me-1">Document Feedback</span> 
+                    </h1>
+                    {% for item in feedback %}
+                    <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    
+                    {% endfor %}
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">Document status</span> 
-                    </p>
-                    <p class="mb-1" style="font-size: .77rem;">Approved</p>
+                    <h1 class="mb-4"><span class="text-primary font-italic me-1">Document status</span> 
+                    </h1>
+                    {% for item in status %}
+                    <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-0">
+                  <div class="card-body">
+                    <h1 class="mb-4"><span class="text-primary font-italic me-1">Verify Sign</span> 
+                    </h1>
+                    {% for item in filehash %}
+                    <a class="mb-1" style="font-size: .77rem;" href="/Verify?filehash={{ item }}">verify</a>
+                    <div class="progress rounded" style="height: 20px;">
+                      <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% endfor %}
                   </div>
                 </div>
               </div>

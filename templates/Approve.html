@@ -3,13 +3,48 @@
 {% block content %}
 
 <div
-  class="bg-image"
-  style="
-    background-image: url('https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp');
-    height: 400px;
+class="bg-image"
+style="
+  background-image: url(https://i.pinimg.com/originals/82/6d/37/826d3747fa7dd9db257daa6910087b69.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+ 
   "
 >
+
+<div class="container">
+  <p>Download the file and check </p>
 <a href="dec_download?file=download"> download</a>
+<form method="POST">
+
+  <br>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form4Example3">Feedback on the document</label>
+    <textarea class="form-control" id="form4Example3"  name ="comment" rows="4"></textarea>
+    
+  </div>
+
+  <br>
+  <label class="form-label" for="form4Example3">Enter your Private Key
+  </label>
+  <input type="password" name="privateKey">
+
+  <br>
+  
+  <br>  
+
+  <p>Click Approval if satisfied with the document</p>
+  <input type="radio" id="age1" name="Approve" value="Approve">
+  <label for="age1">Approve & Sign</label><br>
+  <input type="radio" id="age2" name="Approve" value="Not Approve">
+  <label for="age2">Not Approve</label><br>  
+ 
+  <input type="submit" value="Submit">
+
+
+</form>
 </div>
+
 
 {% endblock %}

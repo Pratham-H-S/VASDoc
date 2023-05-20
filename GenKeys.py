@@ -6,6 +6,11 @@ import json
 from flask import Blueprint ,session ,render_template
 from mongo_files import get_img
 import chardet
+from pymongo import MongoClient
+URL = "mongodb+srv://vasdoc:vasdoc123@cluster0.1ssyf7f.mongodb.net/test"
+
+cl = MongoClient(URL)
+db = cl["userdata"]
 
 GenKeys = Blueprint("GenKeys",__name__,static_folder="static",template_folder="templates") 
 @GenKeys.route("/genKeys")
@@ -30,7 +35,10 @@ def genKeys():
 
   pubKey = (generator_secp256k1 * privKey).pair()
   print(pubKey)
+  pubKey = str(pubKey)
+  db.userdata.find_one_and_update({'name': session['username']}, {"$set":{"pubKey":pubKey}})
 
   return render_template("file_download.html")
+
 # print("Public key: (" + hex(pubKey[0]) + ", " + hex(pubKey[1]) + ")")
 
