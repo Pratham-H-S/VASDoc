@@ -5,13 +5,14 @@
   h1{
     color: yellow;
   }
+  
 </style>
 
 <li>
   <a href="#">Services</a>
   <ul>
     <li><a href="{{ url_for('Approve.approve') }}">Approve docs</a></li>
-    <li><a href="{{ url_for('Verify.verify_file') }}">Verify Doc Sign</a></li>
+ 
     <li><a href="{{ url_for('File_upload.file_upload')}}">Upload File</a></li>
     <li><a href="{{ url_for('AddReceiver.addReceiver')}}">Add Receivers</a></li>
     <li><a href="{{ url_for('received_files.received_files')}}">Received files</a></li>
@@ -62,11 +63,11 @@ style="
                   </h1>
                   {% for item in filehash %}
                   
-                  <a class="mb-1" style="font-size: .77rem;" href="https://VASDoc.infura-ipfs.io/ipfs/{{ item }}" >{{ item }}</a>                 
+                  <a class="mb-1" style="font-size: .91rem;" href="https://VASDoc.infura-ipfs.io/ipfs/{{ item }}" >{{ item }}</a>                 
                  <br>
                  
 
-                  <div class="progress rounded" style="height: 20px;">
+                  <div class="progress rounded" style="height: 32px;">
                     <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                       aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -83,9 +84,9 @@ style="
                   </h1>
                   {% for item in to %}
                   
-                  <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
+                  <p class="mb-1" style="font-size: .99rem;">{{item}}</p>
                   
-                  <div class="progress rounded" style="height: 1px;">
+                  <div class="progress rounded" style="height: 2px;">
                     <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                       aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -100,9 +101,9 @@ style="
                   </h1>
                   {% for item in filename %}
                   
-                  <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
+                  <p class="mb-1" style="font-size: .99rem;">{{ item }}</p>
                   
-                  <div class="progress rounded" style="height: 1px;">
+                  <div class="progress rounded" style="height: 2px;">
                     <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                       aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -116,8 +117,8 @@ style="
                     <h1 class="mb-4"><span class="text-primary font-italic me-1">Document Feedback</span> 
                     </h1>
                     {% for item in feedback %}
-                    <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
-                    <div class="progress rounded" style="height: 5px;">
+                    <p class="mb-1" style="font-size: .99rem;">{{ item }}</p>
+                    <div class="progress rounded" style="height: 2px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -131,8 +132,8 @@ style="
                     <h1 class="mb-4"><span class="text-primary font-italic me-1">Document status</span> 
                     </h1>
                     {% for item in status %}
-                    <p class="mb-1" style="font-size: .77rem;">{{ item }}</p>
-                    <div class="progress rounded" style="height: 5px;">
+                    <p class="mb-1" style="font-size: .99rem;">{{ item }}</p>
+                    <div class="progress rounded" style="height: 2px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -146,8 +147,8 @@ style="
                     <h1 class="mb-4"><span class="text-primary font-italic me-1">Verify Sign</span> 
                     </h1>
                     {% for item in filehash %}
-                    <a class="mb-1" style="font-size: .77rem;" href="/Verify?filehash={{ item }}">verify</a>
-                    <div class="progress rounded" style="height: 20px;">
+                    <a class="mb-1" style="font-size: .99rem;" href="/Verify?filehash={{ item }}">verify</a>
+                    <div class="progress rounded" style="height: 32px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
