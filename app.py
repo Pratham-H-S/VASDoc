@@ -226,7 +226,7 @@ def face_recognition_1():
     known_face_encodings=[]
     known_face_names=[]
     face_encodings,known_face_encodings,known_face_names,face_locations,face_names,process_this_frame=set_up(known_face_encodings,known_face_names)
-    userna=session['messages']
+    userna=session['username']
     return Response(gen_frames(camera,known_face_names,known_face_encodings,face_encodings,face_locations,face_names,process_this_frame), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
