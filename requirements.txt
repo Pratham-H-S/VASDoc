@@ -22,7 +22,7 @@ colorama==0.4.6
 cryptography==39.0.2
 decorator==4.4.2
 distlib==0.3.6
-Django==4.1.7
+
 djangorestframework==3.14.0
 dlib==19.24.0
 dnspython==2.3.0
