@@ -1,3 +1,4 @@
 # VASDoc
 
-A website to upload the documents and get them verified .
+There is a long and hectic process involved in getting the documents verified by the higher-ups. The documents undergo a series of changes and modifications before getting the final approval. Our proposed system provides a secure way to exchange, verify, modify, and comment on the changes performed on the document. The process begins with the creation of a digital document by a user. The document is then encrypted and stored on the IPFS. The user can then share the document with other authorized parties by using their unique IDs. When a party receives the document, they can verify its authenticity and contents using the cryptographic hash of the document stored on the IPFS. If the document meets their requirements, they can sign and encrypt it using their private key. The signed document is then stored on the IPFS and made available to other authorized parties.
+
