@@ -1,4 +1,47 @@
-# VASDoc
+# Secure Document Verification and Collaboration System
 
-There is a long and hectic process involved in getting the documents verified by the higher-ups. The documents undergo a series of changes and modifications before getting the final approval. Our proposed system provides a secure way to exchange, verify, modify, and comment on the changes performed on the document. The process begins with the creation of a digital document by a user. The document is then encrypted and stored on the IPFS. The user can then share the document with other authorized parties by using their unique IDs. When a party receives the document, they can verify its authenticity and contents using the cryptographic hash of the document stored on the IPFS. If the document meets their requirements, they can sign and encrypt it using their private key. The signed document is then stored on the IPFS and made available to other authorized parties.
+## Introduction
+
+The Secure Document Verification and Collaboration System is designed to streamline the process of document verification, approval, and collaboration among authorized parties. This document provides an overview of the system and its key features.
+
+## How It Works
+
+The system operates in several stages:
+
+1. **Document Creation**: Users can create digital documents that require verification or approval.
+
+2. **Encryption and Storage**: Documents are encrypted for security and stored on the InterPlanetary File System (IPFS).
+
+3. **Sharing and Authorization**: Users can share documents with authorized parties using unique IDs to control access.
+
+4. **Document Verification**: Recipients can verify document authenticity and content by comparing the cryptographic hash stored on IPFS.
+
+5. **Signing and Encryption**: If the document meets their requirements, recipients can sign and encrypt it using their private keys.
+
+6. **Storage on IPFS**: The signed and encrypted document is stored on IPFS for future reference.
+
+7. **Accessibility**: Authorized parties can access the approved document securely.
+
+## Benefits
+
+- **Security**: Documents are encrypted, and digital signatures enhance security.
+
+- **Transparency**: IPFS ensures all authorized parties have access to the latest document versions.
+
+- **Collaboration**: Multiple parties can collaborate on the document securely.
+
+- **Immutable Record**: Cryptographic hashes on IPFS prevent document tampering.
+
+- **Access Control**: Unique IDs and private keys control document access.
+
+## Challenges
+
+- **Key Management**: Effective management of encryption keys is essential.
+
+- **User Authentication**: Ensure user authentication is robust and secure.
+
+- **Access Revocation**: Implement a mechanism to revoke access when needed.
+
+
+
 
